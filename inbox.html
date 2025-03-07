@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matematyka 1 - Zadania praktyczne</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .topic-list {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .topic-list h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .topic-list ul {
+            list-style-type: none;
+        }
+        
+        .topic-list li {
+            margin-bottom: 10px;
+        }
+        
+        .topic-list a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .topic-list a:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .task {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .task h3 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .task p {
+            margin-bottom: 15px;
+        }
+        
+        .solution-btn {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .solution-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .solution {
+            display: none;
+            background-color: #e8f8f5;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #2ecc71;
+        }
+        
+        /* Стили для формул */
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+        
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+        
+        .fraction .numerator {
+            display: block;
+            border-bottom: 1px solid;
+            padding-bottom: 2px;
+        }
+        
+        .fraction .denominator {
+            display: block;
+            padding-top: 2px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+        }
+
+        /* Стили для кнопки "Наверх" */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #2c3e50;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px #2ecc71;
+            transition: all 0.3s;
+            border: none;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .scroll-top:hover {
+            background: #3498db;
+            transform: scale(1.1);
+        }
+
+        .scroll-top::before {
+            content: "↑";
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            position: relative;
+            top: -2px;
+        }
+
+        .scroll-top span {
+            position: absolute;
+            white-space: nowrap;
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            bottom: 60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .scroll-top:hover span {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+            .scroll-top::before {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Matematyka 1</h1>
+            <p>Zadania praktyczne do podręcznika dla liceów i techników</p>
+        </header>
+        
+        <div class="topic-list">
+            <h2>Spis treści</h2>
+            <ul>
+                <li><a href="#section1">1. Powtórzenie i wprowadzenie</a></li>
+                <li><a href="#section2">2. Liczby i wyrażenia algebraiczne</a></li>
+                <li><a href="#section3">3. Równania i nierówności</a></li>
+                <li><a href="#section4">4. Funkcje</a></li>
+                <li><a href="#section5">5. Geometria</a></li>
+                <li><a href="#section6">6. Trygonometria</a></li>
+                <li><a href="#section7">7. Proporcje i podobieństwo</a></li>
+                <li><a href="#section8">8. Elementy statystyki opisowej</a></li>
+            </ul>
+        </div>
+        
+        <!-- Раздел 1 - 5 оставляем без изменений -->
+        <section id="section1" class="section">
+            <h2>1. Powtórzenie i wprowadzenie</h2>
+            
+            <div class="task">
+                <h3>Zadanie 1.1: Działania na liczbach</h3>
+                <p>Oblicz wartość wyrażenia: <span class="math">2<sup>3</sup> + 3 · (15 ÷ 3) - √25</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution1_1')">Pokaż rozwiązanie</button>
+                <div id="solution1_1" class="solution">
+                    <p>Rozwiążmy krok po kroku:</p>
+                    <p>1. <span class="math">2<sup>3</sup> = 8</span></p>
+                    <p>2. <span class="math">15 ÷ 3 = 5</span></p>
+                    <p>3. <span class="math">3 · 5 = 15</span></p>
+                    <p>4. <span class="math">√25 = 5</span></p>
+                    <p>5. <span class="math">8 + 15 - 5 = 18</span></p>
+                    <p>Odpowiedź: <span class="math">18</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 1.2: Zbiory liczbowe</h3>
+                <p>Wśród podanych liczb wybierz te, które należą do zbioru liczb rzeczywistych, ale nie należą do zbioru liczb wymiernych:</p>
+                <p><span class="math">a) 0,3333...</span></p>
+                <p><span class="math">b) √2</span></p>
+                <p><span class="math">c) π</span></p>
+                <p><span class="math">d) 4/9</span></p>
+                <p><span class="math">e) √9</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution1_2')">Pokaż rozwiązanie</button>
+                <div id="solution1_2" class="solution">
+                    <p>Liczby niewymierne to liczby rzeczywiste, których nie można zapisać jako iloraz dwóch liczb całkowitych.</p>
+                    <p>a) <span class="math">0,3333...</span> – to liczba wymierna, można ją zapisać jako 1/3</p>
+                    <p>b) <span class="math">√2</span> – to liczba niewymierna</p>
+                    <p>c) <span class="math">π</span> – to liczba niewymierna</p>
+                    <p>d) <span class="math">4/9</span> – to liczba wymierna</p>
+                    <p>e) <span class="math">√9 = 3</span> – to liczba wymierna</p>
+                    <p>Odpowiedź: <span class="math">√2</span> i <span class="math">π</span> są liczbami rzeczywistymi, ale nie wymiernymi.</p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 1.3: Działania na potęgach</h3>
+                <p>Uproszczone wyrażenie <span class="math">a<sup>5</sup> · a<sup>3</sup> ÷ a<sup>4</sup></span> to:</p>
+                <button class="solution-btn" onclick="toggleSolution('solution1_3')">Pokaż rozwiązanie</button>
+                <div id="solution1_3" class="solution">
+                    <p>Korzystamy z reguł działań na potęgach:</p>
+                    <p><span class="math">a<sup>5</sup> · a<sup>3</sup> ÷ a<sup>4</sup> = a<sup>5+3-4</sup> = a<sup>4</sup></span></p>
+                    <p>Odpowiedź: <span class="math">a<sup>4</sup></span></p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section2" class="section">
+            <h2>2. Liczby i wyrażenia algebraiczne</h2>
+            
+            <div class="task">
+                <h3>Zadanie 2.1: Upraszczanie wyrażeń algebraicznych</h3>
+                <p>Uprość wyrażenie: <span class="math">(3x + 2y) - (x - y) + (2x + 4y)</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution2_1')">Pokaż rozwiązanie</button>
+                <div id="solution2_1" class="solution">
+                    <p>Pogrupujmy podobne wyrazy:</p>
+                    <p><span class="math">(3x + 2y) - (x - y) + (2x + 4y)</span></p>
+                    <p><span class="math">= 3x + 2y - x + y + 2x + 4y</span></p>
+                    <p><span class="math">= 4x + 7y</span></p>
+                    <p>Odpowiedź: <span class="math">4x + 7y</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 2.2: Działania na pierwiastkach</h3>
+                <p>Oblicz: <span class="math">√8 · √18</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution2_2')">Pokaż rozwiązanie</button>
+                <div id="solution2_2" class="solution">
+                    <p>Rozkładamy pierwiastki na czynniki:</p>
+                    <p><span class="math">√8 = √(4 · 2) = 2√2</span></p>
+                    <p><span class="math">√18 = √(9 · 2) = 3√2</span></p>
+                    <p><span class="math">√8 · √18 = 2√2 · 3√2 = 12</span></p>
+                    <p>Odpowiedź: <span class="math">12</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 2.3: Działania na wielomianach</h3>
+                <p>Rozwiń i uprość: <span class="math">(x + 3)(x - 2)</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution2_3')">Pokaż rozwiązanie</button>
+                <div id="solution2_3" class="solution">
+                    <p>Stosujemy wzór na mnożenie sum algebraicznych:</p>
+                    <p><span class="math">(x + 3)(x - 2) = x² - 2x + 3x - 6 = x² + x - 6</span></p>
+                    <p>Odpowiedź: <span class="math">x² + x - 6</span></p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section3" class="section">
+            <h2>3. Równania i nierówności</h2>
+            
+            <div class="task">
+                <h3>Zadanie 3.1: Równanie liniowe</h3>
+                <p>Rozwiąż równanie: <span class="math">3(x - 2) = 2(x + 1) - 5</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution3_1')">Pokaż rozwiązanie</button>
+                <div id="solution3_1" class="solution">
+                    <p>Rozwiążmy to równanie krok po kroku:</p>
+                    <p><span class="math">3(x - 2) = 2(x + 1) - 5</span></p>
+                    <p><span class="math">3x - 6 = 2x + 2 - 5</span></p>
+                    <p><span class="math">3x - 6 = 2x - 3</span></p>
+                    <p><span class="math">x = 3</span></p>
+                    <p>Odpowiedź: <span class="math">x = 3</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 3.2: Układ równań liniowych</h3>
+                <p>Rozwiąż układ równań:</p>
+                <p>
+                    <span class="math">2x + y = 5</span><br>
+                    <span class="math">3x - 2y = 4</span>
+                </p>
+                <button class="solution-btn" onclick="toggleSolution('solution3_2')">Pokaż rozwiązanie</button>
+                <div id="solution3_2" class="solution">
+                    <p>Rozwiążmy metodą podstawiania:</p>
+                    <p>Z pierwszego równania: <span class="math">y = 5 - 2x</span></p>
+                    <p>Podstawiamy do drugiego równania:</p>
+                    <p><span class="math">3x - 2(5 - 2x) = 4</span></p>
+                    <p><span class="math">3x - 10 + 4x = 4</span></p>
+                    <p><span class="math">7x = 14</span></p>
+                    <p><span class="math">x = 2</span></p>
+                    <p>Obliczamy y:</p>
+                    <p><span class="math">y = 5 - 2·2 = 1</span></p>
+                    <p>Odpowiedź: <span class="math">x = 2, y = 1</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 3.3: Nierówność liniowa</h3>
+                <p>Rozwiąż nierówność: <span class="math">2(x + 1) > 3x - 4</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution3_3')">Pokaż rozwiązanie</button>
+                <div id="solution3_3" class="solution">
+                    <p>Rozwiążmy tę nierówność krok po kroku:</p>
+                    <p><span class="math">2(x + 1) > 3x - 4</span></p>
+                    <p><span class="math">2x + 2 > 3x - 4</span></p>
+                    <p><span class="math">-x > -6</span></p>
+                    <p><span class="math">x < 6</span> (po zmianie znaku przy mnożeniu przez -1)</p>
+                    <p>Odpowiedź: <span class="math">x < 6</span></p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section4" class="section">
+            <h2>4. Funkcje</h2>
+            
+            <div class="task">
+                <h3>Zadanie 4.1: Funkcja liniowa</h3>
+                <p>Wyznacz wzór funkcji liniowej, której wykres przechodzi przez punkty A(1, 3) i B(4, 9).</p>
+                <button class="solution-btn" onclick="toggleSolution('solution4_1')">Pokaż rozwiązanie</button>
+                <div id="solution4_1" class="solution">
+                    <p>Wzór funkcji liniowej ma postać <span class="math">f(x) = ax + b</span>.</p>
+                    <p>Obliczmy parametr <span class="math">a</span>:</p>
+                    <p><span class="math">a = (9 - 3) / (4 - 1) = 6 / 3 = 2</span></p>
+                    <p>Obliczmy <span class="math">b</span> podstawiając punkt A:</p>
+                    <p><span class="math">3 = 2·1 + b, więc b = 1</span></p>
+                    <p>Odpowiedź: <span class="math">f(x) = 2x + 1</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 4.2: Funkcja kwadratowa</h3>
+                <p>Dana jest funkcja kwadratowa <span class="math">f(x) = x² - 4x + 3</span>. Oblicz:</p>
+                <p>a) Wyróżnik (deltę)</p>
+                <p>b) Miejsca zerowe funkcji</p>
+                <p>c) Współrzędne wierzchołka paraboli</p>
+                <button class="solution-btn" onclick="toggleSolution('solution4_2')">Pokaż rozwiązanie</button>
+                <div id="solution4_2" class="solution">
+                    <p>Dla funkcji <span class="math">f(x) = x² - 4x + 3</span> mamy: a = 1, b = -4, c = 3.</p>
+                    <p>a) Delta: <span class="math">Δ = (-4)² - 4·1·3 = 16 - 12 = 4</span></p>
+                    <p>b) Miejsca zerowe:</p>
+                    <p><span class="math">x₁ = (4 - 2) / 2 = 1</span>, <span class="math">x₂ = (4 + 2) / 2 = 3</span></p>
+                    <p>c) Wierzchołek:</p>
+                    <p><span class="math">p = -b/(2a) = 4/2 = 2, q = f(2) = 4 - 8 + 3 = -1</span></p>
+                    <p>Odpowiedź: Δ = 4, miejsca zerowe: 1 i 3, wierzchołek: (2, -1)</p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 4.3: Własności funkcji</h3>
+                <p>Dla funkcji <span class="math">f(x) = |x - 1| - 2</span> określ:</p>
+                <p>a) Dziedzinę funkcji</p>
+                <p>b) Zbiór wartości funkcji</p>
+                <p>c) Miejsce zerowe funkcji</p>
+                <button class="solution-btn" onclick="toggleSolution('solution4_3')">Pokaż rozwiązanie</button>
+                <div id="solution4_3" class="solution">
+                    <p>a) Dziedzina: <span class="math">ℝ</span></p>
+                    <p>b) Zbiór wartości: ponieważ <span class="math">|x - 1| ≥ 0</span>, mamy <span class="math">|x - 1| - 2 ≥ -2</span>, więc zbiór wartości to <span class="math">[-2, +∞)</span>.</p>
+                    <p>c) Rozwiązujemy <span class="math">|x - 1| - 2 = 0</span>, czyli <span class="math">|x - 1| = 2</span>:</p>
+                    <p>Otrzymujemy <span class="math">x - 1 = 2</span> lub <span class="math">x - 1 = -2</span>, czyli <span class="math">x = 3</span> lub <span class="math">x = -1</span>.</p>
+                    <p>Odpowiedź: dziedzina: ℝ, zbiór wartości: [-2, +∞), miejsca zerowe: -1 i 3</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section5" class="section">
+            <h2>5. Geometria</h2>
+            
+            <div class="task">
+                <h3>Zadanie 5.1: Trójkąty</h3>
+                <p>W trójkącie prostokątnym przyprostokątne mają długości 6 cm i 8 cm. Oblicz:</p>
+                <p>a) Długość przeciwprostokątnej</p>
+                <p>b) Pole trójkąta</p>
+                <p>c) Promień okręgu wpisanego</p>
+                <button class="solution-btn" onclick="toggleSolution('solution5_1')">Pokaż rozwiązanie</button>
+                <div id="solution5_1" class="solution">
+                    <p>a) Przeciwprostokątna: <span class="math">c = √(6² + 8²) = √(36+64) = 10 cm</span></p>
+                    <p>b) Pole: <span class="math">P = (6·8)/2 = 24 cm²</span></p>
+                    <p>c) Promień: <span class="math">r = (6+8-10)/2 = 2 cm</span></p>
+                    <p>Odpowiedź: c = 10 cm, P = 24 cm², r = 2 cm</p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 5.2: Wielokąty</h3>
+                <p>Oblicz pole rombu, którego przekątne mają długości 8 cm i 6 cm. Ile wynoszą długości boków tego rombu?</p>
+                <button class="solution-btn" onclick="toggleSolution('solution5_2')">Pokaż rozwiązanie</button>
+                <div id="solution5_2" class="solution">
+                    <p>Pole rombu: <span class="math">P = (8·6)/2 = 24 cm²</span></p>
+                    <p>Długość boku: <span class="math">a = √((8/2)²+(6/2)²) = √(4²+3²) = √(16+9) = 5 cm</span></p>
+                    <p>Odpowiedź: P = 24 cm², a = 5 cm</p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 5.3: Dowodzenie w geometrii</h3>
+                <p>Udowodnij, że jeśli w czworokącie przekątne są równe i przecinają się pod kątem prostym, to czworokąt ten jest kwadratem.</p>
+                <button class="solution-btn" onclick="toggleSolution('solution5_3')">Pokaż rozwiązanie</button>
+                <div id="solution5_3" class="solution">
+                    <p>1. Oznaczmy czworokąt jako ABCD, a punkt przecięcia przekątnych jako O.</p>
+                    <p>2. Przekątne są równe: <span class="math">AC = BD</span>, a jednocześnie przecinają się pod kątem prostym, dzieląc się na połowy.</p>
+                    <p>3. Dzięki temu trójkąty utworzone przez przekątne są przystające, co oznacza, że wszystkie boki czworokąta są równe, a kąty przy wierzchołkach proste.</p>
+                    <p>Odpowiedź: Czworokąt jest kwadratem.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Обновлённые разделы 6, 7 и 8 согласно исходным условиям -->
+        <section id="section6" class="section">
+            <h2>6. Trygonometria</h2>
+            
+            <div class="task">
+                <h3>Zadanie 6.1: Obliczanie wartości funkcji trygonometrycznych</h3>
+                <p>Oblicz wartość wyrażenia: <span class="math">sin²30° + cos²60° - tg45°</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution6_1')">Pokaż rozwiązanie</button>
+                <div id="solution6_1" class="solution">
+                    <p>1. <span class="math">sin 30° = 1/2, więc sin²30° = (1/2)² = 1/4</span></p>
+                    <p>2. <span class="math">cos 60° = 1/2, więc cos²60° = (1/2)² = 1/4</span></p>
+                    <p>3. <span class="math">tg 45° = 1</span></p>
+                    <p>4. <span class="math">1/4 + 1/4 - 1 = 1/2 - 1 = -1/2</span></p>
+                    <p>Odpowiedź: <span class="math">-1/2</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 6.2: Równania trygonometryczne</h3>
+                <p>Rozwiąż równanie: <span class="math">sin x = 1/2</span> dla <span class="math">x ∈ [0, 2π)</span></p>
+                <button class="solution-btn" onclick="toggleSolution('solution6_2')">Pokaż rozwiązanie</button>
+                <div id="solution6_2" class="solution">
+                    <p>Równanie <span class="math">sin x = 1/2</span> ma rozwiązania:</p>
+                    <p><span class="math">x = π/6</span> oraz <span class="math">x = 5π/6</span></p>
+                    <p>Odpowiedź: <span class="math">x = π/6</span> lub <span class="math">x = 5π/6</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 6.3: Zastosowanie trygonometrii w trójkącie prostokątnym</h3>
+                <p>Drabina o długości 4 m opiera się o ścianę. Kąt między drabiną a podłogą wynosi 60°. Oblicz:</p>
+                <p>a) Wysokość, na którą sięga drabina</p>
+                <p>b) Odległość podstawy drabiny od ściany</p>
+                <button class="solution-btn" onclick="toggleSolution('solution6_3')">Pokaż rozwiązanie</button>
+                <div id="solution6_3" class="solution">
+                    <p>a) Wysokość: <span class="math">h = 4 · sin60° = 4 · (√3/2) = 2√3 m</span> (≈ 3,46 m)</p>
+                    <p>b) Odległość: <span class="math">d = 4 · cos60° = 4 · (1/2) = 2 m</span></p>
+                    <p>Odpowiedź: a) <span class="math">2√3 m</span>, b) <span class="math">2 m</span></p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section7" class="section">
+            <h2>7. Proporcje i podobieństwo</h2>
+            
+            <div class="task">
+                <h3>Zadanie 7.1: Podobieństwo trójkątów</h3>
+                <p>Trójkąty ABC i DEF są podobne. Dany jest stosunek podobieństwa <span class="math">k = 2</span>. Jeśli pole trójkąta ABC wynosi <span class="math">12 cm²</span>, to ile wynosi pole trójkąta DEF?</p>
+                <button class="solution-btn" onclick="toggleSolution('solution7_1')">Pokaż rozwiązanie</button>
+                <div id="solution7_1" class="solution">
+                    <p>Stosunek pól figur podobnych wynosi <span class="math">k² = 2² = 4</span>.</p>
+                    <p>Obliczamy: <span class="math">P_DEF = 4 · 12 cm² = 48 cm²</span></p>
+                    <p>Odpowiedź: <span class="math">48 cm²</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 7.2: Proporcje w trójkącie</h3>
+                <p>Punkt M dzieli bok BC trójkąta ABC w stosunku <span class="math">BM:MC = 2:3</span>. Punkt N dzieli bok AC w stosunku <span class="math">AN:NC = 1:4</span>. Oblicz stosunek pola trójkąta AMN do pola trójkąta ABC.</p>
+                <button class="solution-btn" onclick="toggleSolution('solution7_2')">Pokaż rozwiązanie</button>
+                <div id="solution7_2" class="solution">
+                    <p>Stosunek pól trójkątów przy danym podziale boków wynosi:</p>
+                    <p><span class="math">(BM/BC) · (AN/AC) = (2/5) · (1/5) = 2/25</span></p>
+                    <p>Odpowiedź: <span class="math">2/25</span></p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 7.3: Podział odcinka w danym stosunku</h3>
+                <p>Podziel odcinek AB o długości 15 cm w stosunku 2:3, licząc od punktu A.</p>
+                <button class="solution-btn" onclick="toggleSolution('solution7_3')">Pokaż rozwiązanie</button>
+                <div id="solution7_3" class="solution">
+                    <p>Punkt C dzieli odcinek AB tak, że:</p>
+                    <p><span class="math">AC = (2/(2+3)) · 15 cm = (2/5) · 15 cm = 6 cm</span></p>
+                    <p>Odpowiedź: Punkt C leży w odległości <span class="math">6 cm</span> od punktu A.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section8" class="section">
+            <h2>8. Elementy statystyki opisowej</h2>
+            
+            <div class="task">
+                <h3>Zadanie 8.1: Miary tendencji centralnej</h3>
+                <p>Dane są wyniki egzaminu z matematyki: <span class="math">75, 68, 83, 91, 68, 72, 75</span>. Oblicz:</p>
+                <p>a) Średnią arytmetyczną</p>
+                <p>b) Medianę</p>
+                <p>c) Modę (dominantę)</p>
+                <button class="solution-btn" onclick="toggleSolution('solution8_1')">Pokaż rozwiązanie</button>
+                <div id="solution8_1" class="solution">
+                    <p>1. Uporządkujemy dane: <span class="math">68, 68, 72, 75, 75, 83, 91</span></p>
+                    <p>2. Średnia: <span class="math">(75+68+83+91+68+72+75)/7 = 532/7 ≈ 76</span></p>
+                    <p>3. Mediana: środkowa wartość uporządkowanego zbioru to <span class="math">75</span></p>
+                    <p>4. Dominanta: liczby występujące najczęściej to <span class="math">68</span> i <span class="math">75</span> (po 2 razy)</p>
+                    <p>Odpowiedź: a) ≈ 76, b) 75, c) 68 i 75</p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 8.2: Rozstęp i odchylenie standardowe</h3>
+                <p>Dla danych: <span class="math">4, 6, 8, 10, 12</span>, oblicz:</p>
+                <p>a) Rozstęp</p>
+                <p>b) Wariancję</p>
+                <p>c) Odchylenie standardowe</p>
+                <button class="solution-btn" onclick="toggleSolution('solution8_2')">Pokaż rozwiązanie</button>
+                <div id="solution8_2" class="solution">
+                    <p>Rozstęp: <span class="math">12 - 4 = 8</span></p>
+                    <p>Średnia: <span class="math">(4+6+8+10+12)/5 = 40/5 = 8</span></p>
+                    <p>Wariancja: <span class="math">[(4-8)²+(6-8)²+(8-8)²+(10-8)²+(12-8)²] / 5 = (16+4+0+4+16)/5 = 40/5 = 8</span></p>
+                    <p>Odchylenie standardowe: <span class="math">√8 ≈ 2,83</span></p>
+                    <p>Odpowiedź: a) 8, b) 8, c) ≈ 2,83</p>
+                </div>
+            </div>
+            
+            <div class="task">
+                <h3>Zadanie 8.3: Interpretacja danych statystycznych</h3>
+                <p>Dane z testu: <span class="math">10, 15, 15, 18, 19, 20, 20, 20, 22, 25, 27, 30</span></p>
+                <p>Przedstaw te dane w formie tabeli częstości i określ, jaki procent uczniów otrzymał co najmniej 20 punktów.</p>
+                <button class="solution-btn" onclick="toggleSolution('solution8_3')">Pokaż rozwiązanie</button>
+                <div id="solution8_3" class="solution">
+                    <p>Tabela częstości:</p>
+                    <ul>
+                        <li>10 punktów: 1 uczeń</li>
+                        <li>15 punktów: 2 uczniów</li>
+                        <li>18 punktów: 1 uczeń</li>
+                        <li>19 punktów: 1 uczeń</li>
+                        <li>20 punktów: 3 uczniów</li>
+                        <li>22 punkty: 1 uczeń</li>
+                        <li>25 punktów: 1 uczeń</li>
+                        <li>27 punktów: 1 uczeń</li>
+                        <li>30 punktów: 1 uczeń</li>
+                    </ul>
+                    <p>Liczba uczniów: 12</p>
+                    <p>Liczba uczniów z co najmniej 20 punktami: 3+1+1+1 = 7</p>
+                    <p>Procent: <span class="math">(7/12)·100% ≈ 58,33%</span></p>
+                    <p>Odpowiedź: około 58,33% uczniów</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Кнопка "Наверх" -->
+    <button class="scroll-top" onclick="scrollToTop()" title="Наверх">
+      <span>Do góry</span>
+  </button>
+    <!-- Скрипт для работы кнопок "Pokaż rozwiązanie" -->
+    <script>
+        function toggleSolution(id) {
+            var el = document.getElementById(id);
+            if (el.style.display === "none" || el.style.display === "") {
+                el.style.display = "block";
+            } else {
+                el.style.display = "none";
+            }
+        }
+
+        // Показ/скрытие кнопки "Наверх"
+        window.onscroll = function() {
+            const scrollBtn = document.querySelector('.scroll-top');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        };
+
+        // Плавная прокрутка наверх
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
